@@ -1,0 +1,24 @@
+{
+  "name": "gimungsshop",
+  "version": "1.0.0",
+  "description": "Dummy GS Shop data server for voice-gsshop project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gimunlee/gimunGsshop.git"
+  },
+  "author": "Gimun Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gimunlee/gimunGsshop/issues"
+  },
+  "homepage": "https://github.com/gimunlee/gimunGsshop#readme",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "uuid": "^3.0.1"
+  }
+}
