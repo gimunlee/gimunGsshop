@@ -14,8 +14,8 @@ function newDelivery() {
 }
 
 const PRODUCT_SAMPLE = {
-    'name' : "G패드3 10.1",
-    'category' : "전자",
+    'name' : "G pad 3 10.1",
+    'category' : "Mobile",
     'price' : 400000,
     'image' : null,
     'options' : {
@@ -24,8 +24,8 @@ const PRODUCT_SAMPLE = {
 const DELIVERY_SAMPLE = {
     'id' : uuidV4(),
     'product' : newProduct(),
-    'transportation' : "대한통운",
-    'currentLocation' : "대전",
+    'transportation' : "Daehan Express",
+    'currentLocation' : "Daejon",
     'from' : "여의도 FKI빌딩 23층 신기술개발팀",
     'to' : "여의도 FKI빌딩 20층 행복마루",
     'estimatedTimeToArrive' : "2017년 2월 25일 저녁",
