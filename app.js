@@ -50,6 +50,9 @@ app.use('/',query(live, deliveries));
 var userQuery = require('./userQuery');
 app.use('/users',userQuery());
 
+app.get('/test',function(req, res) {
+    res.json("{'message':'this is for the test', 'koreanMessage':'이것은 테스트입니다.'}");
+
 //////////////////////////////////////////
 app.listen(app.get('port'), function() {
     console.log("listening to " + app.get('port'));
