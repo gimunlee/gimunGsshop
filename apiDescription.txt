@@ -1,0 +1,68 @@
+voice-shop API
+
+...com:8080/
+	Welcome to Voice Shop server 환영 메시지
+...com:8080/live 현재 생방송 중인 제품 정보
+	GET : 조회
+	PUT : 수정
+...com:8080/deliveries (유저 상관없이) 배송 정보들
+	GET : 조회 with array
+	DELETE : 모두 삭제
+	POST : 새로 추가
+...com:8080/deliveries/(Delivery ID) 배송 정보
+example)) http://ec2-54-196-242-126.compute-1.amazonaws.com:8080/deliveries/a3afede9-42c0-4c36-b1ae-47e771d55324
+	GET : 읽기
+	PUT : 수정
+	DELETE : 단일 삭제
+...com:8080/users/(User ID)/locations 배송지들
+example)) http://ec2-54-196-242-126.compute-1.amazonaws.com:8080/users/GIMUN/billings
+	GET : 조회 with array
+...com:8080/users/(User ID)/billings 결제 방법
+	GET : 조회 with array
+
+제품 정보 JSON
+Sample
+const PRODUCT_SAMPLE = {
+    'name' : "G pad 3 10.1",
+    'category' : "Mobile",
+    'price' : 400000,
+    'image' : null,
+    'options' : {
+        'color' : "Black"
+    }
+}
+
+배송 정보 JSON
+Sample
+const DELIVERY_SAMPLE = {
+    'id' : uuidV4(), // 그때그떄 생성
+    'product' : newProduct(), // 제품 JSON
+    'transportation' : "Daehan Express",
+    'currentLocation' : "Daejon", // 배송 중 현재 장소
+    'from' : "여의도 FKI빌딩 23층 신기술개발팀",
+    'to' : "여의도 FKI빌딩 20층 행복마루",
+    'estimatedTimeToArrive' : "2017년 2월 25일 저녁",// 예상 도착 시간
+    'message' : "비밀번호 1234입니다. 문 앞에 두어주세요." // 배송 메시지
+}
+
+유저 정보 JSON
+Sample
+const USER_SAMPLE = {
+    'id':"GIMUN",
+    'name':"이기문",
+    'locations':[
+        "여의도역 2번출구",
+        "FKI빌딩 23층"
+    ],
+    'billings':[
+        {
+            'type':"우리카드",
+            'number':"1111-2222-3333-4444",
+            'expirationMonth':"12/20",
+        },
+        {
+            'type':"휴대폰 결제",
+            'phoneNUmber':"010-1111-2222",
+        }
+    ]
+}

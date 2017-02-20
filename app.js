@@ -19,6 +19,7 @@ const PRODUCT_SAMPLE = {
     'price' : 400000,
     'image' : null,
     'options' : {
+        'color' : "Black"
     }
 }
 const DELIVERY_SAMPLE = {
