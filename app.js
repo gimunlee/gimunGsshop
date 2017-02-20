@@ -40,7 +40,7 @@ app.set('port', process.env.PORT || 8080);
 /////////////////////////////////////////
 
 app.get("/", function(req, res) {
-    res.send("Welcome to GS Shop server!");
+    res.send("Welcome to Voice Shop server!");
 });
 /////////////////////////////////////////
 
