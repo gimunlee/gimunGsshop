@@ -1,5 +1,6 @@
 let express = require('express');
 let bodyParser = require('body-parser');
+let mongoose = require('mongoose');
 let app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -43,6 +44,9 @@ app.set('port', process.env.PORT || 8080);
 app.get("/", function(req, res) {
     res.send("Welcome to Voice Shop server!");
 });
+
+var test = require('./test');
+app.use('/test',test());
 /////////////////////////////////////////
 
 var query = require('./query');
