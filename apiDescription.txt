@@ -11,6 +11,7 @@ voice-shop API
 	POST : 새로 추가
 ...com:8080/deliveries/(Delivery ID) 배송 정보
 example)) http://ec2-54-196-242-126.compute-1.amazonaws.com:8080/deliveries/a3afede9-42c0-4c36-b1ae-47e771d55324
+http://sdfasf/users/GIMUN/billings?alias=card
 	GET : 읽기
 	PUT : 수정
 	DELETE : 단일 삭제

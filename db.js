@@ -14,13 +14,20 @@ var billingSchema = mongoose.Schema({
 });
 var Billing = mongoose.model('Billing',billingSchema);
 
+var locationSchema = mongoose.Schema({
+    alias:String,
+    city:String,
+    detail:String
+});
+var Location = mongoose.model('Location',locationSchema);
+
 var userSchema = mongoose.Schema({
     voiceShopId: {
         type:String,
         unique:true
     },
     name: String,
-    locations: [String],
+    locations: [locationSchema],
     billings: [billingSchema],
 });
 var User = mongoose.model('User',userSchema);
@@ -166,7 +173,22 @@ Db.prototype = {
         var gimun = new User({
             voiceShopId:"GIMUN",
             name:"Gimun Lee",
-            locations:["Dobongsan","Seoul"],
+            locations:[
+                {
+                    alias:"my home",
+                    city:"Busan",
+                    detail:"Minam"
+                },
+                {
+                    alias:"room",
+                    city:"Seoul",
+                    detail:"Dobongsan"
+                },
+                {
+                    alias:"company",
+                    city:"Seoul",
+                    detail:"F.K.I. Building"
+                }],
             billings:[{
                 type:"card",
                 name:"woori card",
@@ -183,6 +205,45 @@ Db.prototype = {
             }]
         });
         gimun.save(function(err, item) {
+            if(err) return console.error(err);
+            console.log(item.name + " saved.");
+        });
+
+        var gill = new User({
+            voiceShopId:"GILL",
+            name:"Gimun Gill",
+            locations:[
+                {
+                    alias:"my home",
+                    city:"California",
+                    detail:"Minam"
+                },
+                {
+                    alias:"room",
+                    city:"Gwanjoo",
+                    detail:"Dobongsan"
+                },
+                {
+                    alias:"company",
+                    city:"Haewoondae",
+                    detail:"F.K.I. Building"
+                }],
+            billings:[{
+                type:"card",
+                name:"kookmin card",
+                detail:{
+                    expirationMonth:"12/20"
+                }
+            },
+            {
+                type:"mobile",
+                name:"Mobile",
+                detail:{
+                    phoneNumber:"010-1111-2222"
+                }
+            }]
+        });
+        gill.save(function(err, item) {
             if(err) return console.error(err);
             console.log(item.name + " saved.");
         });
@@ -222,6 +283,20 @@ Db.prototype = {
             message:"The password of the door is 1 2 3 4."
         });
         phoneDaejon.save(function(err, item) {
+            if(err) return console.error(err);
+            console.log(item.transportation + " saved.");
+        });
+
+        var phoneDaejon2 = new Delivery({
+            'product':fridge,
+            transportation:"Hankook Express",
+            currentLocation:"Seoul",
+            from:"New tech dev team",
+            to:'Hang-bok-ma-ru',
+            estimatedTimeToArrive:Date('2017-02-20'),
+            message:"The password of the door is 1 2 3 4."
+        });
+        phoneDaejon2.save(function(err, item) {
             if(err) return console.error(err);
             console.log(item.transportation + " saved.");
         });

@@ -15,6 +15,12 @@ module.exports = function(db) {
                 res.json(billings);
             });
         });
+    // router.route('/:userId/billings/:alias')
+    //     .get(function(req, res) {
+    //         db.getBilling(req.params.userId,req.params.alias,function(billing) {
+    //             res.json(billing);
+    //         });
+    //     })
     router.route('/:userId')
         .get(function(req, res) {
             var user;
