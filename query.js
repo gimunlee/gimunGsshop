@@ -1,6 +1,6 @@
 var express = require('express');
 
-module.exports = function(live, deliveries, db) {
+module.exports = function(db) {
     var router = express.Router();
 
     router.route('/live')
