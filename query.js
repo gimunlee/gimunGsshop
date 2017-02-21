@@ -1,75 +1,65 @@
 var express = require('express');
 
-module.exports = function(live, deliveries) {
+module.exports = function(live, deliveries, db) {
     var router = express.Router();
 
     router.route('/live')
         .get(function(req, res) {
-            res.send(live);
+            db.getLive(function(liveProduct) {
+                res.send(liveProduct);
+            },req.query.fields);
         })
         .put(function(req, res) {
-            live = JSON.parse(JSON.stringify(req.body));
-            res.writeHead(202);
-            res.end();
+            db.putLive(req.body,function() {
+                res.sendStatus(202);
+            });
         });
     router.route('/deliveries')
         .get(function(req, res) {
-            res.send(deliveries);
-            // console.log(deliveries);
+            db.getDeliveries(function(deliveries) {
+                console.log(deliveries);
+                res.json(deliveries);
+            },req.query.fields);
         })
         .delete(function(req, res) {
-            deliveries = [];
-            res.writeHead(202);
-            res.end();
+            db.deleteDeliveries(function() {
+                res.sendStatus(202);
+            });
         })
         .post(function(req, res) {
-            console.log("post");
-            var newUuid = uuidV4();
-            console.log(req.body);
-            var newItem = JSON.parse(JSON.stringify(req.body));
-            newItem.id = newUuid;
-
-            deliveries.push(newItem);
-
-            res.writeHead(202);
-            res.end();
+            db.postDeliveries(req.body,function() {
+                res.sendStatus(202);
+            });
         });
     router.route('/deliveries/:id')
         .get(function(req, res) {
-            var targetItem = deliveries.find(function(item) { return item.id == req.params.id });
-            if(targetItem != undefined) {
-                res.send(targetItem);
-            }
-            else {
-                res.writeHead(404);
-                res.end();
-            }
+            db.getDelivery(req.params.id,function(delivery) {
+                res.json(delivery);
+            });
         })
         .put(function(req, res) {
-            console.log("put");
-            let targetItem = deliveries.find(function(item) { return item.id == req.params.id });
-            let targetIndex = deliveries.indexOf(targetItem);
-            let targetId = targetItem.id;
-            if(targetIndex == -1) {
-                targetIndex = deliveries.push(newDelivery()) -1;
-                targetId = uuidV4();
-            }
-            // console.log(targetItem);
-            deliveries[targetIndex] = JSON.parse(JSON.stringify(req.body));
-            deliveries[targetIndex].id = targetId;
-            res.send();
-        })
-        .delete(function(req, res) {
-            var targetItem = deliveries.find(function(item) { return item.id == req.params.id});
-            if(targetItem!=undefined) {
-                var targetIndex = deliveries.indexOf(targetItem);
-                deliveries.splice(targetIndex,1);
-                res.send();
-            }
-            else {
-                res.writeHead(404);
-                res.send();
-            }
+            db.putDelivery(req.params.id,req.body,function() {
+                res.sendStatus(202);
+            });
+        });
+        // .delete(function(req, res) {
+        //     var targetItem = deliveries.find(function(item) { return item.id == req.params.id});
+        //     if(targetItem!=undefined) {
+        //         var targetIndex = deliveries.indexOf(targetItem);
+        //         deliveries.splice(targetIndex,1);
+        //         res.send();
+        //     }
+        //     else {
+        //         res.writeHead(404);
+        //         res.send();
+        //     }
+        // });
+    router.route('/products')
+        .get(function(req, res) {
+            db.getProducts(function(products) {
+                res.json(products);
+                console.log(products);
+            },req.query.fields);
         });
         
     return router;

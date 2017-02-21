@@ -98,7 +98,7 @@ Db.prototype = {
         });
     },
     getUser:function(id, callback, fields) {
-        User.findOne({voiceShopId:id},{name:1},function(err, user) {
+        User.findOne({voiceShopId:id},function(err, user) {
             if(err) return console.error(err);
             callback(user);
         });
@@ -150,6 +150,7 @@ Db.prototype = {
     getLocations:function(userId,callback) {
         User.findOne({voiceShopId:userId},{locations:1},function(err, user) {
             if(err) return console.error(err);
+            console.log(user);
             console.log(user.locations);
             callback(user.locations);
         });

@@ -1,51 +1,37 @@
 var express = require('express');
 
-module.exports = function() {
+module.exports = function(db) {
     var router = express.Router();
-    let users = []
-    users = [
-        {
-            'id':"GIMUN",
-            'name':"이기문",
-            'locations':[
-                "여의도역 2번출구",
-                "FKI빌딩 23층"
-            ],
-            'billings':[
-                {
-                    'type':"우리카드",
-                    'number':"1111-2222-3333-4444",
-                    'expirationMonth':"12/20",
-                },
-                {
-                    'type':"휴대폰 결제",
-                    'phoneNUmber':"010-1111-2222",
-                }
-            ]
-        }
-    ]
 
     router.route('/:userId/locations')
         .get(function(req, res) {
-            var targetUser = users.find(function(item){ return item.id == req.params.userId; });
-            if(targetUser != undefined) {
-                res.send(JSON.stringify(targetUser.locations));
-            }
-            else {
-                res.writeHead(404);
-                res.end();
-            }
+            db.getLocations(req.params.userId,function(locations) {
+                res.json(locations);
+            });
         });
     router.route('/:userId/billings')
         .get(function(req, res) {
-            var targetUser = users.find(function(item){ return item.id == req.params.userId;});
-            if(targetUser != undefined) {
-                res.send(JSON.stringify(targetUser.billings));
-            }
-            else {
-                res.writeHead(404);
-                res.send();
-            }
+            db.getBillings(req.params.userId,function(billings) {
+                res.json(billings);
+            });
+        });
+    router.route('/:userId')
+        .get(function(req, res) {
+            var user;
+            db.getUser(req.params.userId, function(user) {
+                console.log(user);
+                res.json(user);
+            },req.query.fields);
+        });
+    router.route('/')
+        .get(function(req, res) {
+            var users;
+            db.getUsers(function(users) {
+                console.log(users);
+                res.json(users);
+            },req.query.fields);
+        })
+        .post(function(req, res) {
         });
 
     return router;

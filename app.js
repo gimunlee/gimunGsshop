@@ -5,6 +5,8 @@ let app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+var db = require('./db');
+
 const uuidV4 = require('uuid/v4');
 
 function newProduct() {
@@ -46,14 +48,14 @@ app.get("/", function(req, res) {
 });
 
 var test = require('./test');
-app.use('/test',test());
+app.use('/test',test(db));
 /////////////////////////////////////////
 
 var query = require('./query');
-app.use('/',query(live, deliveries));
+app.use('/',query(live, deliveries, db));
 
 var userQuery = require('./userQuery');
-app.use('/users',userQuery());
+app.use('/users',userQuery(db));
 
 app.get('/test',function(req, res) {
     res.json("{'message':'this is for the test', 'koreanMessage':'이것은 테스트입니다.'}");});
