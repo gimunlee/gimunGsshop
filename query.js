@@ -56,7 +56,14 @@ module.exports = function(db) {
         // });
     router.route('/products')
         .get(function(req, res) {
-            db.getProducts(function(products) {
+            db.getProducts({},function(products) {
+                res.json(products);
+                console.log(products);
+            },req.query.fields);
+        });
+    router.route('/products/:category')
+        .get(function(req, res) {
+            db.getProducts({category:req.params.category},function(products) {
                 res.json(products);
                 console.log(products);
             },req.query.fields);

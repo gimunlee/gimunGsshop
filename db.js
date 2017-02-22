@@ -110,8 +110,8 @@ Db.prototype = {
             callback(user);
         });
     },
-    getProducts:function(callback, fields) {
-        Product.find(function(err, products) {
+    getProducts:function(filter,callback, fields) {
+        Product.find(filter,function(err, products) {
             if(err) return console.error(err);
             callback(products);
         });
